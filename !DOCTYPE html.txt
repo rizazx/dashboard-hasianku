@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Hasian 💕</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe4e1 0%, #ffc0cb 50%, #ff69b4 100%);
+      min-height: 100vh;
+      padding: 16px;
+      color: #4a1a3d;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      margin-bottom: 8px;
+    }
+    .header p {
+      color: #fff;
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .card {
+      background: rgba(255,255,255,0.85);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(255,105,180,0.2);
+      backdrop-filter: blur(10px);
+    }
+    .card-icon {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .card h3 {
+      text-align: center;
+      color: #ff1493;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+    .btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: transform 0.2s;
+    }
+    .btn:hover { transform: scale(1.02); }
+    .btn-primary {
+      background: linear-gradient(90deg, #ff69b4, #ff1493);
+      color: white;
+    }
+    .btn-secondary {
+      background: #fff0f5;
+      color: #ff1493;
+      border: 2px solid #ff69b4;
+    }
+    .quote-box, .reason-box {
+      font-style: italic;
+      text-align: center;
+      color: #6b2d5c;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: opacity 0.3s;
+    }
+    .progress-bg {
+      background: #ffe4e1;
+      border-radius: 12px;
+      height: 24px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-bar {
+      width: 75%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff69b4, #ff1493);
+      border-radius: 12px;
+      transition: width 0.5s ease;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    .game-area {
+      height: 120px;
+      background: #fff0f5;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .heart-target {
+      position: absolute;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      user-select: none;
+    }
+    .goal-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      padding: 8px;
+      background: #fff0f5;
+      border-radius: 8px;
+    }
+    .goal-item input[type="checkbox"] {
+      accent-color: #ff1493;
+      width: 18px;
+      height: 18px;
+    }
+    .goal-item span {
+      color: #6b2d5c;
+      font-size: 0.9rem;
+    }
+    .goal-item.done span {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+    .hug-btn {
+      padding: 14px 32px;
+      background: linear-gradient(90deg, #ff69b4, #ff1493);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(255,20,147,0.3);
+    }
+    .hug-btn:hover { transform: scale(1.05); }
+    .hug-msg {
+      margin-top: 12px;
+      color: #ff1493;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.5s;
+      min-height: 24px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 32px;
+      color: #fff;
+      opacity: 0.8;
+      font-size: 0.85rem;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .pulse { animation: pulse 2s infinite; }
+    .floating-heart {
+      position: fixed;
+      font-size: 2rem;
+      pointer-events: none;
+      animation: floatUp 3s ease-out forwards;
+      z-index: 9999;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-300px) scale(0); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>✨ Dashboard Hasian ✨</h1>
+    <p>Semangat terus ya, sayangku! 💕</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- Mood Booster -->
+    <div class="card">
+      <div class="card-icon">🌈</div>
+      <h3>Mood Booster</h3>
+      <div class="quote-box" id="quoteBox">"Kamu itu hebat, Hasian. Jangan lupa itu ya!"</div>
+      <button class="btn btn-primary" onclick="newQuote()">🎲 Semangat Baru</button>
+    </div>
+
+    <!-- Progress -->
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>Level Semangat Hasian</h3>
+      <div class="progress-bg">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="progress-label">
+        <span>Semangat:</span>
+        <span id="progressText" style="font-weight:700;color:#ff1493;">75%</span>
+      </div>
+      <button class="btn btn-secondary" onclick="boostProgress()">➕ Tambah Semangat</button>
+    </div>
+
+    <!-- Reasons -->
+    <div class="card">
+      <div class="card-icon">💖</div>
+      <h3>Alasan Sayang Hasian</h3>
+      <div class="reason-box" id="reasonBox">Hasian itu orangnya baik banget sama semua orang</div>
+      <button class="btn btn-primary" onclick="newReason()">💌 Alasan Lain</button>
+    </div>
+
+    <!-- Game -->
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h3>Tebak Hati Hasian</h3>
+      <p style="text-align:center;color:#6b2d5c;font-size:0.85rem;margin-bottom:10px;">Klik hati yang bergerak!</p>
+      <div class="game-area" id="gameArea">
+        <div class="heart-target" id="heartTarget" onclick="catchHeart(event)">💗</div>
+      </div>
+      <div style="text-align:center;margin-top:10px;color:#ff1493;font-weight:700;">Skor: <span id="score">0</span></div>
+    </div>
+
+    <!-- Goals -->
+    <div class="card">
+      <div class="card-icon">📝</div>
+      <h3>Goals Hasian Hari Ini</h3>
+      <div id="goalsList">
+        <div class="goal-item"><input type="checkbox" onchange="toggleGoal(this)"><span>Minum air putih 8 gelas</span></div>
+        <div class="goal-item"><input type="checkbox" onchange="toggleGoal(this)"><span>Senyum minimal 10 kali</span></div>
+      </div>
+      <button class="btn btn-secondary" onclick="addGoal()">➕ Tambah Goals</button>
+    </div>
+
+    <!-- Virtual Hug -->
+    <div class="card" style="text-align:center;">
+      <div class="card-icon pulse">🤗</div>
+      <h3>Virtual Hug</h3>
+      <p style="color:#6b2d5c;font-size:0.9rem;margin-bottom:14px;">Klik buat kirim peluk hangat ke Hasian!</p>
+      <button class="hug-btn" onclick="sendHug()">💝 Kirim Peluk</button>
+      <div class="hug-msg" id="hugMsg"></div>
+    </div>
+
+  </div>
+
+  <div class="footer">Dibuat dengan 💕 untuk Hasian yang paling keren sedunia</div>
+
+  <script>
+    const quotes = [
+      "Hasian, kamu itu hebat banget! Jangan pernah ragu sama diri sendiri 💪",
+      "Setiap hari bareng Hasian itu hari yang spesial ✨",
+      "Hasian pantas dapat yang terbaik di dunia ini 🌟",
+      "Kalo Hasian capek, inget aku selalu di sampingmu 🤗",
+      "Hasian itu inspirasi buat aku tiap hari 💖",
+      "Jangan takut gagal, Hasian. Aku percaya kamu pasti bisa! 🚀",
+      "Hasian itu kuat, cantik/tampan, dan luar biasa! 🌸",
+      "Semua orang beruntung bisa kenal Hasian 🍀",
+      "Hasian, kamu itu cahaya buat semua orang di sekitarmu ☀️",
+      "Aku bangga banget sama Hasian! 🏆"
+    ];
+
+    function newQuote() {
+      const box = document.getElementById('quoteBox');
+      box.style.opacity = '0';
+      setTimeout(() => {
+        box.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+        box.style.opacity = '1';
+      }, 200);
+    }
+
+    let progress = 75;
+    function boostProgress() {
+      progress = Math.min(progress + 5, 100);
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('progressText').textContent = progress === 100 ? '100% - MAX POWER! 🔥' : progress + '%';
+    }
+
+    const reasons = [
+      "Hasian itu orangnya baik banget sama semua orang",
+      "Senyum Hasian itu manis banget 😊",
+      "Hasian selalu effort buat yang disayang",
+      "Hasian itu cerdas dan penuh ide kreatif 💡",
+      "Hasian selalu bikin orang di sekitarnya bahagia",
+      "Hasian itu pekerja keras dan gak gampang menyerah",
+      "Cara Hasian peduli sama orang lain itu spesial banget",
+      "Hasian punya hati yang besar dan hangat 💕",
+      "Hasian itu unik dan gak ada duanya di dunia",
+      "Aku bersyukur banget punya Hasian di hidupku"
+    ];
+
+    function newReason() {
+      const box = document.getElementById('reasonBox');
+      box.style.opacity = '0';
+      setTimeout(() => {
+        box.textContent = reasons[Math.floor(Math.random() * reasons.length)];
+        box.style.opacity = '1';
+      }, 200);
+    }
+
+    let score = 0;
+    function moveHeart() {
+      const heart = document.getElementById('heartTarget');
+      const area = document.getElementById('gameArea');
+      const maxX = area.clientWidth - 40;
+      const maxY = area.clientHeight - 40;
+      heart.style.left = Math.random() * maxX + 'px';
+      heart.style.top = Math.random() * maxY + 'px';
+    }
+    setInterval(moveHeart, 1500);
+    setTimeout(moveHeart, 100);
+
+    function catchHeart(e) {
+      e.stopPropagation();
+      score += 10;
+      document.getElementById('score').textContent = score;
+      moveHeart();
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => spawnHeart(e.clientX, e.clientY), i * 100);
+      }
+    }
+
+    function spawnHeart(x, y) {
+      const h = document.createElement('div');
+      h.textContent = '💖';
+      h.className = 'floating-heart';
+      h.style.left = (x + Math.random() * 40 - 20) + 'px';
+      h.style.top = (y + Math.random() * 40 - 20) + 'px';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 3000);
+    }
+
+    function toggleGoal(cb) {
+      cb.parentElement.classList.toggle('done', cb.checked);
+    }
+
+    function addGoal() {
+      const list = document.getElementById('goalsList');
+      const goals = [
+        "Baca buku minimal 10 halaman",
+        "Jalan-jalan sore 30 menit",
+        "Meditasi 5 menit",
+        "Tulis 3 hal yang disyukuri",
+        "Kasih senyum ke orang asing",
+        "Makan buah hari ini",
+        "Tidur cukup 7-8 jam"
+      ];
+      const div = document.createElement('div');
+      div.className = 'goal-item';
+      div.innerHTML = `<input type="checkbox" onchange="toggleGoal(this)"><span>${goals[Math.floor(Math.random() * goals.length)]}</span>`;
+      list.appendChild(div);
+    }
+
+    function sendHug() {
+      const msg = document.getElementById('hugMsg');
+      const hugs = [
+        "Peluk hangat buat Hasian! 🤗💕",
+        "Aku peluk Hasian dari jauh! 💝",
+        "Hasian dapet peluk super besar! 🫂",
+        "Peluk erat buat Hasian yang hebat! 💖"
+      ];
+      msg.textContent = hugs[Math.floor(Math.random() * hugs.length)];
+      msg.style.opacity = '1';
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          spawnHeart(window.innerWidth/2 + Math.random()*200 - 100, window.innerHeight/2 + Math.random()*100);
+        }, i * 150);
+      }
+      setTimeout(() => { msg.style.opacity = '0'; }, 3000);
+    }
+  </script>
+
+</body>
+</html>
